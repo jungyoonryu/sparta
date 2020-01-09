@@ -3,7 +3,7 @@
 <head>
 
   <!-- Webpage Title -->
-  <title>Hello, world!</title>
+  <title>한라봉 맛있어요</title>
 
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -18,36 +18,81 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <style type="text/css">
     .wrap {
-      width: 1000px;
+      width: 600px;
       margin: auto;
     }
     .center {
-      margin: 50px auto 0 auto;
+      display: block;
+      text-align: center;
     }
     * {
       font-family: 'Stylish', sans-serif;
       font-family: 'Nanum Gothic', sans-serif;
     }
+    .line {
+      padding: 20px 0 0 0;
+    }
+    .bold {
+      font-weight: bold;
+    }
+    .end {
+      margin: 30px auto 50px auto;
+    }
   </style>
   <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Stylish&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="wrap">
-   <div class="card center" style="width: 800px;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <label>상품 제목</label>
-      <p class="card-text">상품 설명</p>
-    </div>
+
+ <div class="center">
+   <img src="http://image.news1.kr/system/photos/2018/2/26/2985073/article.jpg">
+ </div>
+ <div class="wrap">
+   <div class="line">
+     <h2 class="bold" style="display: inline">맛있는 한라봉</h2>
+     <h6 style="display: inline;"><span class="badge badge-secondary">New</span></h6>
+     <p class="px-4" style="display: inline">가격: 100,000원/
+     박스 </p>
+     <p class="py-2">
+       제주도의 상징인 한라산을 닮은듯한 한라봉! 청정제주의 맑은  공기와 햇살에 의해 탄생한 한라봉은 감귤류 중에서 재배가 까다롭지만 감귤보다 높은 당도를 담고 있습니다.
+     </p>
+   </div>
+   <div >
+     <h2 class="bold">주문하기</h2>
+     <form>
+      <div class="form-group row">
+        <label for="inputname" class="col-sm-3 col-form-label">주문자 성함: </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="inputname">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="selectamount" class="col-sm-3 col-form-label">수량: </label>
+        <div class="col-sm-9">
+          <select class="custom-select" id="selectamount">
+            <option selected>--수량을 선택하세요--</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputaddress" class="col-sm-3 col-form-label">주소:  </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="inputaddress">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="inputnum" class="col-sm-3 col-form-label">전화번호:  </label>
+        <div class="col-sm-9">
+          <input type="text" class="form-control" id="inputnum">
+        </div>
+      </div>
+
+    </form>
   </div>
-  <div class="form-group row">
-    <label for="inputPassword" class="col-sm-2 col-form-label">
-      주문자 성함 
-    </label>
-    <div class="col-sm-10">
-      <input type="text" class="form-control" >
-    </div>
-  </div>
+<div class="end"><button type="button" class="btn btn-secondary btn-lg btn-block">주문하기 </button></div>
+  
 </div>
 </body>
 </html>
