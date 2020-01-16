@@ -19,10 +19,13 @@
 
     <script>
       function q1(){
-        // 1. input-q1의 입력값을 가져온다.
-        // 2. 만약 입력값이 빈칸이면 if(입력값=='')
-        // 3. alert('입력하세요!') 띄우기
-        // 4. alert(입력값) 띄우기
+        Let input_value = $('#input-q1').val();
+        If (input_value == '') {
+          alert('입력하세요!'); //or var msg = '입력하세요!';
+        } else {
+          alert(input_value); //or var msg = input_value
+        }
+        //alert(msg);
       }
 
       function q5(){
