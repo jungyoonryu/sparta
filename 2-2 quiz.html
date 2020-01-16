@@ -20,8 +20,8 @@
 
     <script>
       function q1(){
-        Let input_value = $('#input-q1').val();
-        If (input_value == '') {
+        let input_value = $('#input-q1').val();
+        if (input_value == '') {
           alert('입력하세요!'); //or var msg = '입력하세요!';
         } else {
           alert(input_value); //or var msg = input_value
@@ -31,7 +31,7 @@
 
       function q5(){
         let email = $('#input-q5').val();
-        If (email.indexOf('@') == -1) {
+        if (email.indexOf('@') == -1) {
           $('#warning-q5').show();
           $('#domain-q5').hide();
         } else {
@@ -45,7 +45,9 @@
       function q7() {
         let name = $('#input-q7').val();
         var temp_html = '<li>' + name + '</li>';
-        $('#names-q7').append(temp_html);
+        if (name!=''){
+          $('#names-q7').append(temp_html);
+        }
       }
 
       function q7_remove() {
