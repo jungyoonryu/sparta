@@ -14,7 +14,8 @@
 
       h6.warning {
       	/* 여기도 코드가 필요하겠죠? 빨간색 글씨 */
-      }
+        color: red;
+        display: none;      }
     </style>
 
     <script>
@@ -41,6 +42,16 @@
       	// 6. 가져온 값에 @가 없으면
       	// 7. warning-q5의 warning 클래스를 이용해서, 글씨를 빨간색으로 바꾼다. (head 안의 <style>~</style>부분을 보세요!)
       	// 8. warning-q5는 보이게하고, domain-q5는 안보이게 한다.
+        var email=$('#input-q5').val()
+        if (email.indexOf("@")>0) {
+          $('#domain-q5').text(email.split('@')[1].split('.')[0]);
+          $('#domain-q5').show();
+          $('#warning-q5').hide();
+        }
+        else {
+          $('#domain-q5').hide();
+          $('#warning-q5').show();
+        }
       }
 
       function q7() {
