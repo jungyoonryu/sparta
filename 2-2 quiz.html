@@ -13,7 +13,8 @@
       }
 
       h6.warning {
-      	/* 여기도 코드가 필요하겠죠? 빨간색 글씨 */
+      	color: red;
+        display: none;
       }
     </style>
 
@@ -29,15 +30,16 @@
       }
 
       function q5(){
-				// 0. 일단, 소문제 미리보기의 2-4번을 꼭 해보고 아래를 읽어주세요!
-      	// 1. input-q5 값을 가져온다.
-      	// 2. 만약 가져온 값에 @가 있으면 (indexOf를 이용하기 - 찾아보자!)
-      	// 3. info.spartacoding@gmail.com -> gmail 만 추출해서
-      	// 4. domain-q5의 텍스트를 gmail로 바꿔준다. (jQuery의 $(...).text('문자열')을 이용하면 굿!)
-      	// 5. domain-q5는 보이게하고, warning-q5는 안보이게 한다. (show / hide)
-      	// 6. 가져온 값에 @가 없으면
-      	// 7. warning-q5의 warning 클래스를 이용해서, 글씨를 빨간색으로 바꾼다. (head 안의 <style>~</style>부분을 보세요!)
-      	// 8. warning-q5는 보이게하고, domain-q5는 안보이게 한다.
+        let email = $('#input-q5').val();
+        If (email.indexOf('@') == -1) {
+          $('#warning-q5').show();
+          $('#domain-q5').hide();
+        } else {
+          var domain = email.split('@')[1].split('.')[0];
+          $('#domain-q5').text(domain);
+          $('#domain-q5').show();
+          $('#warning-q5').hide();
+        }
       }
 
       function q7() {
