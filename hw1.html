@@ -26,8 +26,7 @@
       text-align: center;
     }
     * {
-      font-family: 'Stylish', sans-serif;
-      font-family: 'Nanum Gothic', sans-serif;
+      font-family: 'Poor Story', cursive;
     }
     .line {
       padding: 20px 0 0 0;
@@ -39,7 +38,30 @@
       margin: 30px auto 50px auto;
     }
   </style>
-  <link href="https://fonts.googleapis.com/css?family=Nanum+Gothic|Stylish&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Poor+Story&display=swap" rel="stylesheet">
+  <script type="text/javascript">
+    function fcs() {
+      if ($('#inputname').val()=='') {
+        alert ('이름을 입력해주세요');
+        $('#inputname').focus();
+      } else if ($('#selectamount').val()=='--수량을 선택하세요--') {
+        alert ('수량을 입력해주세요');
+        $('#selectamount').focus();
+      } else if ($('#inputaddress').val()=='') {
+        alert ('주소를 입력해주세요');
+        $('#inputaddress').focus();
+      } else if ($('#inputnum').val()=='') {
+        alert ('전화번호를 입력해주세요');
+        $('#inputnum').focus();
+      } else if (!isMobile($('#inputnum'))) {
+        alert ('휴대폰번호 입력 형식이 틀립니다. \n010-0000-0000으로 입력해주세요')
+      }
+    }
+    function isMobile(phoneNum) { 
+      var regExp =/(01[016789])([1-9]{1}[0-9]{2,3})([0-9]{4})$/;
+      return regExp.test(phoneNum);
+}
+</script>
 </head>
 <body>
 
@@ -91,7 +113,7 @@
 
     </form>
   </div>
-<div class="end"><button type="button" class="btn btn-secondary btn-lg btn-block">주문하기 </button></div>
+  <div class="end"><button type="button" class="btn btn-secondary btn-lg btn-block" onclick="fcs()">주문하기 </button></div>
   
 </div>
 </body>
