@@ -63,14 +63,16 @@
         $('#inputnum').focus();
       } else if (!isMobile(phone)) {
         alert ('휴대폰번호 입력 형식이 틀립니다. \n010-0000-0000으로 입력해주세요')
+
+      } else {
+        var temp_html = '<tr>\
+        <td>'+name+'</td>\
+        <td>'+amount+'</td>\
+        <td>'+address+'</td>\
+        <td>'+phone+'</td>\
+        </tr>';
+        $('#orders_box').append(temp_html);
       }
-      var temp_html = '<tr>\
-      <td>'+name+'</td>\
-      <td>'+amount+'</td>\
-      <td>'+address+'</td>\
-      <td>'+phone+'</td>\
-      </tr>';
-      $('#orders_box').append(temp_html);
     }
 
     function isMobile(phoneNum) { 
