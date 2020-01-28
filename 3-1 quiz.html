@@ -18,15 +18,13 @@
 
     <script>
       function q1() {
-       let cat_img = $('#img-cat');
-       cat_img.attr('src','');
        $.ajax({
         type: "GET",
         url: "https://api.thecatapi.com/v1/images/search",
         data: {},
         success: function(response) {
           let image_url = response[0]['url'];
-          $('img').attr('src', image_url);
+          $('#img-cat').attr('src', image_url);
         }
        })
       }
