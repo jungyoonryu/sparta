@@ -1,54 +1,74 @@
 <!doctype html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>JQuery 연습하고 가기!</title>
+  <head>
+    <meta charset="UTF-8">
+    <title>JQuery 연습하고 가기!</title>
+    <!-- JQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
+    <style type="text/css">
+      div.question-box {
+        margin: 10px 0 20px 0;
+      }
+      table {
+        border: 1px solid;
+        border-collapse: collapse;
+      }
 
-  <!-- JQuery를 import 합니다 -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+      td, th {
+        padding: 10px;
+        border: 1px solid;
+      }
+    </style>
 
-  <style type="text/css">
-    div.question-box {
-      margin: 10px 0 20px 0;
-    }
-  </style>
-
-  <script>
-    function q1() {
-      let ul = $('#names-q1');
-      ul.empty();
-      $.ajax({
-        type: "GET",
-        url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
-        data: {},
-        success: function(response) {
-            let row = response['RealtimeCityAir']['row']; //row는 리스트
+    <script>
+      function q1() {
+        let tbody = $('#names-q1');
+        tbody.empty();
+        $.ajax({
+          type: "GET",
+          url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/bikeList/1/99](http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/bikeList/1/99",
+          data: {},
+          success: function(response) {
+            let row = response['rentBikeStatus']['row'];
             for (let i=0; i<row.length; i++) {
-              var name = row[i]['MSRSTE_NM'];
-              var index = row[i]['IDEX_MVL'];
-              var html = '<li>'+name+' : '+index+'</li>';
-              ul.append(html);
+              var location = row[i]['stationName'];
+              var rackNum = row[i]['rackTotCnt'];
+              var bikeNum = row[i]['parkingBikeTotCnt'];
+              var html = '<tr>\
+              <td>'+ location +'</td>\
+              <td>'+ rackNum + '</td>\
+              <td>'+ bickNum + '</td>\
+              </tr>';
+              tbody.append(html);
             }
-
           }
         })
-    }
-  </script>
+      }
+    </script>
 
-</head>
-<body>
-  <h1>JQuery+Ajax의 조합을 연습하자!</h1>
+  </head>
+  <body>
+    <h1>JQuery+Ajax의 조합을 연습하자!</h1>
 
-  <hr/>
+    <hr/>
 
-  <div class="question-box">
-    <h2>1. 서울시 OpenAPI(실시간 미세먼지 상태)를 이용하기</h2>
-    <p>모든 구의 미세먼지를 표기해주세요</p>
-    <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
-    <button onclick="q1()">업데이트</button>
-    <ul id="names-q1">
-    
-    </ul>
-  </div>
-</body>
+    <div class="question-box">
+      <h2>2. 서울시 OpenAPI(실시간 따릉기 현황)를 이용하기</h2>
+      <p>모든 위치의 따릉이 현황을 보여주세요</p>
+      <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
+      <button onclick="q1()">업데이트</button>
+      <table>
+        <thead>
+          <tr>
+            <td>거치대 위치</td>
+            <td>거치대 수</td>
+            <td>현재 거치된 따릉이 수</td>
+          </tr>
+        </thead>
+        <tbody id="names-q1">
+        </tbody>
+      </table>
+    </div>
+  </body>
 </html>
