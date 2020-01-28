@@ -14,15 +14,13 @@
 
     <script>
       function q1() {
-        let exp = $('#meaning');
         let num_input = $('#magicnum').val();
-        exp.empty();
         $.ajax({
           type: "GET",
           url: "http://numbersapi.com/"+num_input,
           data: {},
           success: function(response) { 
-          meaning.append(response);
+          $('#meaning').text(response);
           }
         })
       }
