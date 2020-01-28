@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>JQuery 연습하고 가기!</title>
+
+  <!-- JQuery를 import 합니다 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+  <style type="text/css">
+    div.question-box {
+      margin: 10px 0 20px 0;
+    }
+  </style>
+
+  <script>
+    function q1() {
+      let ul = $('#names-q1');
+      ul.empty();
+      $.ajax({
+        type: "GET",
+        url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+        data: {},
+        success: function(response) {
+            let row = response['RealtimeCityAir']['row']; //row는 리스트
+            for (let i=0; i<row.length; i++) {
+              var name = row[i]['MSRSTE_NM'];
+              var index = row[i]['IDEX_MVL'];
+              var html = '<li>'+name+' : '+index+'</li>';
+              ul.append(html);
+            }
+
+          }
+        })
+    }
+  </script>
+
+</head>
+<body>
+  <h1>JQuery+Ajax의 조합을 연습하자!</h1>
+
+  <hr/>
+
+  <div class="question-box">
+    <h2>1. 서울시 OpenAPI(실시간 미세먼지 상태)를 이용하기</h2>
+    <p>모든 구의 미세먼지를 표기해주세요</p>
+    <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
+    <button onclick="q1()">업데이트</button>
+    <ul id="names-q1">
+    
+    </ul>
+  </div>
+</body>
+</html>
