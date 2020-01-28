@@ -1,44 +1,111 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <title>JQuery 연습하고 가기!</title>
-    <!-- JQuery를 import 합니다 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-    <style type="text/css">
-      div.question-box {
-        margin: 10px 0 20px 0;
-      }      
-    </style>
+<head>
+  <meta charset="UTF-8">
+  <title>JQuery 연습하고 가기!</title>
+  <!-- JQuery를 import 합니다 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-    <script>
-      function q1() {
-        let num_input = $('#magicnum').val();
+  <style type="text/css">
+    div.question-box {
+      margin: 10px 0 20px 0;
+    }
+    div.newsbox {
+      width: 500px;
+    }
+
+    div.newsbox > div {
+      margin-top: 50px;
+      border: 1.5px solid #181818;
+      padding: 10px;
+    }
+
+    div.newsbox > div > img {
+      display: block;
+    }
+
+    div.newsbox > div > div.title-box {
+      margin: 30px 0 30px 0;
+    }
+
+    div.newsbox > div > div > a {
+      color: #181818;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    div.newsbox > div > div > h5 {
+      color: #5d5d5d;
+      margin: 4px 0 2px 0;
+    }
+
+    div.newsbox > div > p {
+      background-color: #d3e1e5;
+      padding: 5px;
+    }
+  </style>
+
+  <script>
+    function q1() {
+      let keyword = $('#input-keyword').val(); 
+      if (keyword.trim() == '') {
+        alert('키워드를 입력하세요!')
+        return;
+      } 
         $.ajax({
           type: "GET",
-          url: "http://numbersapi.com/"+num_input,
+          url: "https://newsapi.org/v2/everything?q="+keyword+"&apiKey=5d6c1a1d4c0d4de1a60bc34087bb8655",
           data: {},
-          success: function(response) { 
-          $('#meaning').text(response);
+          success: function(response) {
+            let articles = response['articles'];
+            $('#news').empty();
+            for (let i=0; i<articles.length;i++){
+              let description = articles[i]['description'];
+              let title = articles[i]['title'];
+              let image = articles[i]['urlToImage'];
+              let news_url = articles[i]['url'];
+              let date = articles[i]['publishedAt'];
+              let author = articles[i]['author'];
+
+              let html = '<div>\
+              <img src="'+image+'" width="100%">\
+              <div class="title-box">\
+              <a href="'+news_url+'" target="_blank">'+title+'</a>\
+              <h5>'+date+' | '+author+' </h5>\
+              </div>\
+              <p>'+description+'</p>\
+              </div>';
+              $('#news').append(html);
+            }
           }
         })
       }
-    </script>
+    
+  </script>
 
-  </head>
-  <body>
-    <h1>JQuery+Ajax의 조합을 연습하자!</h1>
+</head>
+<body>
+  <h1>JQuery+Ajax의 조합을 연습하자!</h1>
 
-    <hr/>
+  <hr/>
 
-    <div class="question-box">
-      <h2>4. 랜덤 숫자 의미부여 API를 이용하기</h2>
-      <p>모든 숫자는 어떤 의미가 있습니다.</p>
-      <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
-      <input type="number" id="magicnum">
-      <button onclick="q1()">이 숫자의 의미는?</button>
-      <h5 id="meaning"></h5>
+  <div class="question-box">
+    <h2>5. 뉴스 검색 API를 이용하기</h2>
+    <p>키워드에 걸맞는 뉴스를 띄워줍니다.</p>
+    <p>아무것도 입력하지 않으면, alert을 띄워주세요.</p>
+    <input type="text" id="input-keyword" placeholder="검색어를 입력하세요">
+    <button onclick="q1()">관련 기사보기</button>      
+  </div>
+  <hr/>
+  <div class="newsbox" id="news">
+    <div>
+      <img src="http://www.bloter.net/wp-content/uploads/2019/10/191029_pr-11st-apple-music2.png" width="100%">
+      <div class="title-box">
+        <a href="https://naver.com/" target="_blank">11번가, 애플뮤직 7개월 무료 이용 혜택 제공 나서</a>
+        <h5>2019-10-29T17:15:00Z | 글쓴이 </h5>
+      </div>
+      <p>여기에 기사 내용이 들어갑니다. 이 칸을 복사해서 Jquery로 html append 하는 데 쓰면 되겠죠? CSS는 추가/수정 할 필요 업습니다!</p>
     </div>
-  </body>
+  </div>
+</body>
 </html>
