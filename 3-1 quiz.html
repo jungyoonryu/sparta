@@ -1,74 +1,86 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8">
-    <title>JQuery 연습하고 가기!</title>
-    <!-- JQuery를 import 합니다 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-    <style type="text/css">
-      div.question-box {
-        margin: 10px 0 20px 0;
-      }
-      table {
-        border: 1px solid;
-        border-collapse: collapse;
-      }
+<head>
+  <meta charset="UTF-8">
+  <title>JQuery 연습하고 가기!</title>
+  <!-- JQuery를 import 합니다 -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-      td, th {
-        padding: 10px;
-        border: 1px solid;
-      }
-    </style>
+  <style type="text/css">
+    div.question-box {
+      margin: 10px 0 20px 0;
+    }
+    table {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
 
-    <script>
-      function q1() {
-        let cycle_tbody = $('#names-q1');
-        cycle_tbody.empty();
-        $.ajax({
-          type: "GET",
-          url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/bikeList/1/99",
-          data: {},
-          success: function(response) {
-            let row = response['rentBikeStatus']['row'];
-            for (let i=0; i<row.length; i++) {
-              var station = row[i]['stationName'];
-              var rack_num = row[i]['rackTotCnt'];
-              var bike_num = row[i]['parkingBikeTotCnt'];
+    td, th {
+      padding: 10px;
+      border: 1px solid;
+    }
+    .urgent {
+      color: red;
+    }
+  </style>
+
+  <script>
+    function q1() {
+      let cycle_tbody = $('#names-q1');
+      cycle_tbody.empty();
+      $.ajax({
+        type: "GET",
+        url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/bikeList/1/99",
+        data: {},
+        success: function(response) {
+          let row = response['rentBikeStatus']['row'];
+          for (let i=0; i<row.length; i++) {
+            var station = row[i]['stationName'];
+            var rack_num = row[i]['rackTotCnt'];
+            var bike_num = row[i]['parkingBikeTotCnt'];
+            if (bike_num>=5) {
               var html = '<tr>\
               <td>'+ station +'</td>\
               <td>'+ rack_num + '</td>\
               <td>'+ bike_num + '</td>\
               </tr>';
-              cycle_tbody.append(html);
+            } else {
+              var html = '<tr>\
+              <td><span class="urgent">'+ station +'</span></td>\
+              <td><span class="urgent">'+ rack_num + '</span></td>\
+              <td><span class="urgent">'+ bike_num + '</span></td>\
+              </tr>';
             }
+            cycle_tbody.append(html);
           }
-        })
-      }
-    </script>
 
-  </head>
-  <body>
-    <h1>JQuery+Ajax의 조합을 연습하자!</h1>
+        }
+      })
+    }
+  </script>
 
-    <hr/>
+</head>
+<body>
+  <h1>JQuery+Ajax의 조합을 연습하자!</h1>
 
-    <div class="question-box">
-      <h2>2. 서울시 OpenAPI(실시간 따릉기 현황)를 이용하기</h2>
-      <p>모든 위치의 따릉이 현황을 보여주세요</p>
-      <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
-      <button onclick="q1()">업데이트</button>
-      <table>
-        <thead>
-          <tr>
-            <td>거치대 위치</td>
-            <td>거치대 수</td>
-            <td>현재 거치된 따릉이 수</td>
-          </tr>
-        </thead>
-        <tbody id="names-q1">
-        </tbody>
-      </table>
-    </div>
-  </body>
+  <hr/>
+
+  <div class="question-box">
+    <h2>2. 서울시 OpenAPI(실시간 따릉기 현황)를 이용하기</h2>
+    <p>모든 위치의 따릉이 현황을 보여주세요</p>
+    <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
+    <button onclick="q1()">업데이트</button>
+    <table>
+      <thead>
+        <tr>
+          <td>거치대 위치</td>
+          <td>거치대 수</td>
+          <td>현재 거치된 따릉이 수</td>
+        </tr>
+      </thead>
+      <tbody id="names-q1">
+      </tbody>
+    </table>
+  </div>
+</body>
 </html>
