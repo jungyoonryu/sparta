@@ -44,6 +44,11 @@
   <link href="https://fonts.googleapis.com/css?family=Poor+Story&display=swap" rel="stylesheet">
   <script type="text/javascript">
 
+    function isMobile(phoneNum) { 
+      var regExp =/(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[-]([0-9]{3,4})[-]([0-9]{4})$/;
+      return regExp.test(phoneNum);
+    }
+
     function fcs() {
       let name = $('#inputname').val();
       let amount = $('#selectamount').val();
@@ -65,19 +70,50 @@
         alert ('휴대폰번호 입력 형식이 틀립니다. \n010-0000-0000으로 입력해주세요')
 
       } else {
-      var temp_html = '<tr>\
+        alert ('주문 완료!');
+        let temp_html = '<tr>\
+        <td>'+name+'</td>\
+        <td>'+amount+'</td>\
+        <td>'+address+'</td>\
+        <td>'+phone+'</td>\
+        </tr>';
+        $('#orders_box').append(temp_html);
+        document.getElementById("orderForm").reset();
+      }
+      
+    }
+
+    $(document).ready(function(){
+      $('#orders_box').html('');
+      listing()
+    });
+
+    function listing() {
+      $.ajax({
+        type: "GET",
+        url: "http://spartacodingclub.shop/order",
+        data: {},
+        success: function(response) {
+          if (response['result']=='success') {
+            let orders = response['orders'];
+            for (let i = 0; i < orders.length; i++) {
+              make_card(orders[i]['name'], orders[i]['count'], orders[i]['address'], orders[i]['phone'])
+            }
+          } else {
+            alert ('기사를 받아오지 못했습니다')
+          }
+        }
+      })
+    }
+
+    function make_card(name, amount, address, phone) {
+      let temp_html = '<tr>\
       <td>'+name+'</td>\
       <td>'+amount+'</td>\
       <td>'+address+'</td>\
       <td>'+phone+'</td>\
       </tr>';
       $('#orders_box').append(temp_html);
-      }
-    }
-
-    function isMobile(phoneNum) { 
-      var regExp =/(01[016789]{1}|02|0[3-9]{1}[0-9]{1})[-]([0-9]{3,4})[-]([0-9]{4})$/;
-      return regExp.test(phoneNum);
     }
 
   </script>
@@ -99,7 +135,7 @@
    </div>
    <div >
      <h2 class="bold">주문하기</h2>
-     <form>
+     <form id="orderForm">
       <div class="form-group row">
         <label for="inputname" class="col-sm-3 col-form-label">주문자 성함: </label>
         <div class="col-sm-9">
